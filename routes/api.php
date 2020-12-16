@@ -26,10 +26,12 @@ Route::group(['prefix' => 'auth'], function () {
     
     // Las siguientes rutas además del prefijo requieren que el usuario tenga un token válido
    Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('logout', '');
+    Route::get('logout', [PassportAuthController::class,'logout']);
     // Aquí agrega tus rutas de la API. En mi caso (EN MI CASO, EL TUYO PUEDE VARIAR) he agregado una de productos
-    Route::post('eventos/{$user}','EventController@show');
-    //Route::post('eventos/crear', 'EventController@create');
+    Route::post('/events',[EventController::class,'events']);
+    Route::post('/events/create', [EventController::class, 'store']);
+    
+
 }); 
 
 

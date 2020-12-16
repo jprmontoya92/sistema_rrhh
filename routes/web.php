@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/asistencia', [EstablishmentController::class, 'index'])->name('establishment.index');
+
+Route::get('get-establishments', [EstablishmentController::class,'getEstablishments'])->name('establishment.getEstablishment');;
+Route::post('get-locations', [EstablishmentController::class,'getLocations'])->name('establishment.getLocations');
+Route::post('asistencia',[IdentifierController::class,'index'])->name('identifier.index');
+Route::get('get-qr',[IdentifierController::class,'getIdentifier'])->name('identifier.getIdentifier');

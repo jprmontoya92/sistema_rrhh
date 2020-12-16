@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class IdentifierValidation extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['identifier_id','start_date','end_date']; 
 }
