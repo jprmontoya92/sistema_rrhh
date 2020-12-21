@@ -16,25 +16,44 @@ class PassportAuthController extends Controller
                 'rut' =>'required|min:8',
                 'dv'  => 'required|min:1',
                 'name' =>'required',
-                'email' => 'required|email',
-                'password' => 'required|min:4'
+                'last_name' => 'required',
+                'second_surname' => 'required',
+                'first_email' => 'required|email',
+                'second_email' => 'required|email',
+                'password' => 'required|min:4',
+                'phone' => 'required|min:9'
             ]);
     
             //inserto registro en mi tabla de usuarios
+        
+            if(User::find($request->rut) === null){
+                
+                $user = new User([
+                    'rut'          => $request->rut,
+                    'dv'           => $request->dv,
+                    'name'         => $request->name,
+                    'last_name'     => $request->last_name,
+                    'second_surname'=> $request->second_surname,
+                    'first_email'  => $request->first_email,
+                    'second_email' => $request->second_email,
+                    'password'     => bcrypt($request->password),
+                    'phone'        => $request->phone
+                    ]);
+                    
+                    $user->save();
+                    /*  $token = $usuario->createToken('AuthApp')->accessToken; */
     
-            $user = new User([
-                'rut' => $request->rut,
-                'dv' => $request->dv,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password)
-            ]);
+                return response()->json(['error'=>false, 'message'=> 'Usuario registrado!'],200);
+            }else{
+
+                return response()->json(['error'=>true, 'message'=>'Usuario con rut '.$request->rut.' ya existe en nuestros registros']);
+            }
+            
+           
+                
+            
     
-            $user->save();
-    
-           /*  $token = $usuario->createToken('AuthApp')->accessToken; */
-    
-            return response()->json(['Message'=> 'Usuario registrado!'],200);
+           
     
         }
     
@@ -51,7 +70,7 @@ class PassportAuthController extends Controller
             if(!Auth::attempt($credentials)){
                 return response()->json([
                     'error' => true,
-                    'message' => 'Unauthorized'
+                    'message' => 'Usuario o contraseña incorrectos. Intentar nuevamente.'
                 ],401);
             }
     

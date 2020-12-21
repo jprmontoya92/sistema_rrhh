@@ -17,9 +17,13 @@ class CreateUsersTable extends Migration
             $table->id('rut')->unique();
             $table->string('dv');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('last_name');
+            $table->string('second_surname');
+            $table->string('first_email')->unique();
+            $table->string('second_email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('phone');
             $table->rememberToken();
             $table->timestamps();
         });
