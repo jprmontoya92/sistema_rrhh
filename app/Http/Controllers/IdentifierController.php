@@ -33,7 +33,7 @@ class IdentifierController extends Controller
         IdentifierValidation::create([
             'identifier_id' => $identifier,
             'start_date' => Carbon::now(),
-            'end_date' => Carbon::now()->addSeconds(18)
+            'end_date' => Carbon::now()->addSeconds(20)
         ]);
 
         $qrCode = new QrCode($identifier);
