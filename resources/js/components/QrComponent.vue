@@ -17,7 +17,7 @@ export default {
         startqr: function(){
             var id = setInterval(()=>{
                 axios.get("/get-qr").then(response =>(this.qrs = response.data));
-            },15000)
+            },10000)
         },
     },
      beforeDestroy() {
